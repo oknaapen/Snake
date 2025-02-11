@@ -1,0 +1,36 @@
+from turtle import Turtle as T
+ALIGMENT = "center"
+FONT = ("arial", 8, "normal")
+with open(r"C:\Users\oknaa\OneDrive\Documenten\data.py", mode="r") as file:
+    contents = file.readline().strip()
+    try:
+        a = int(contents)
+    except ValueError:
+        a = 0
+
+
+class Score(T):
+    def __init__(self):
+        super().__init__()
+        self.score = 0
+        self.highscore = a
+        self.color("white")
+        self.penup()
+        self.goto(0, 270)
+        self.hideturtle()
+        self.update_scoreboard()
+    def update_scoreboard (self):
+        self.clear()
+        self.write(f"Score: {self.score} High score: {self.highscore}", align = ALIGMENT, font = FONT)
+        self.penup()
+    def Increase_Score(self):
+        self.score += 1
+        self.clear()
+        self.update_scoreboard()
+    def reset(self):
+        if self.score > self.highscore:
+            self.highscore = self.score
+            with open(r"C:\Users\oknaa\OneDrive\Documenten\data.py", mode="w") as file_2:
+                file_2.write(f"{self.score}")
+        self.score = 0
+        self.update_scoreboard()
